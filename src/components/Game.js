@@ -10,16 +10,17 @@ export default class Game extends Component {
         for (let i = 0; i < size; i++) {
             grid[i] = [];
             for (let j = 0; j < size; j++) {
-                grid[i][j] = Math.random() < 0.2 ? "grey" : "white";
+                grid[i][j] = Math.random() < 0.5 ? "grey" : "white";
             }
         }
 
         let antX = 0,
             antY = 0,
-            antDir = 0;
+            antDir = 1;
 
         /*
-          antDir can be 0, 1, 2, or 3, corresponding to N, E, S, W.
+          antDir can be    0, 1, 2, 3, 
+          corresponding to N, E, S, W.
         */
 
         this.state = {
@@ -34,35 +35,60 @@ export default class Game extends Component {
     }
 
     update() {
-        let color = this.state.grid[this.state.antX][this.state.antY];
         let antDir = this.state.antDir;
         let antX = this.state.antX;
         let antY = this.state.antY;
+        let size = this.state.size;
 
+        let bounce = false;
         /* eslint-disable */
-        switch (color) {
-            case "white":
-                antDir = (antDir + 1) % 4;
-                break;
-            case "grey":
-                antDir = (antDir + 4 - 1) % 4;
-                break;
-        }
-
         switch (antDir) {
             case 0:
                 antY -= 1;
+                if (antY < 0) {
+                    antY = 0;
+                    antDir = 2;
+                    bounce = true;
+                }
                 break;
             case 1:
                 antX += 1;
+                if (antX >= size) {
+                    antX = size - 1;
+                    antDir = 3;
+                    bounce = true;
+                }
                 break;
             case 2:
                 antY += 1;
+                if (antY >= size) {
+                    antY = size - 1;
+                    antDir = 0;
+                    bounce = true;
+                }
                 break;
             case 3:
                 antX -= 1;
+                if (antX < 0) {
+                    antX = 0;
+                    antDir = 1;
+                    bounce = true;
+                }
                 break;
         }
+
+        if (!bounce) {
+            let color = this.state.grid[antY][antX];
+            switch (color) {
+                case "white":
+                    antDir = (antDir + 1) % 4;
+                    break;
+                case "grey":
+                    antDir = (antDir - 1 + 4) % 4;
+                    break;
+            }
+        }
+
         /* eslint-enable */
 
         this.setState({
@@ -70,7 +96,6 @@ export default class Game extends Component {
             antX,
             antY,
         });
-        console.log("update");
     }
 
     render() {
@@ -84,9 +109,26 @@ export default class Game extends Component {
                     border: "1px solid black",
                     backgroundColor: this.state.grid[i][j],
                 };
+                let ant;
+                /* eslint-disable */
+                switch (this.state.antDir) {
+                    case 0:
+                        ant = "^";
+                        break;
+                    case 1:
+                        ant = ">";
+                        break;
+                    case 2:
+                        ant = "v";
+                        break;
+                    case 3:
+                        ant = "<";
+                        break;
+                }
+                /* eslint-enable */
                 row[j] = (
                     <td key={j} style={style}>
-                        {i === this.state.antX && j === this.state.antY && "A"}
+                        {j === this.state.antX && i === this.state.antY && ant}
                     </td>
                 );
             }
