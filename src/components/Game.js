@@ -10,9 +10,10 @@ export default class Game extends Component {
         for (let i = 0; i < size; i++) {
             grid[i] = [];
             for (let j = 0; j < size; j++) {
-                grid[i][j] = Math.random() < 0.5 ? "grey" : "white";
+                grid[i][j] = i === j ? "grey" : "white";
             }
         }
+        grid[size - 1][size - 1] = "green";
 
         let antX = 0,
             antY = 0,
@@ -32,6 +33,7 @@ export default class Game extends Component {
         };
 
         this.update = this.update.bind(this);
+        this.win = this.win.bind(this);
     }
 
     update() {
@@ -96,6 +98,14 @@ export default class Game extends Component {
             antX,
             antY,
         });
+
+        if (antX === size - 1 && antY === size - 1) {
+            this.win();
+        }
+    }
+
+    win() {
+        alert("you win!");
     }
 
     render() {
