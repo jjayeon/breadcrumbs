@@ -10,7 +10,7 @@ export default class Game extends Component {
         for (let i = 0; i < size; i++) {
             grid[i] = [];
             for (let j = 0; j < size; j++) {
-                grid[i][j] = i === j ? "grey" : "white";
+                grid[i][j] = Math.random() < 0.5 ? "grey" : "white";
             }
         }
         grid[size - 1][size - 1] = "green";
@@ -32,8 +32,21 @@ export default class Game extends Component {
             antDir,
         };
 
+        this.toggle = this.toggle.bind(this);
         this.update = this.update.bind(this);
         this.win = this.win.bind(this);
+    }
+
+    toggle(i, j) {
+        let grid = this.state.grid;
+        let color = grid[i][j];
+        if (color === "white") color = "grey";
+        else if (color === "grey") color = "white";
+        grid[i][j] = color;
+
+        this.setState({
+            grid,
+        });
     }
 
     update() {
@@ -137,7 +150,7 @@ export default class Game extends Component {
                 }
                 /* eslint-enable */
                 row[j] = (
-                    <td key={j} style={style}>
+                    <td key={j} style={style} onClick={() => this.toggle(i, j)}>
                         {j === this.state.antX && i === this.state.antY && ant}
                     </td>
                 );
@@ -148,7 +161,8 @@ export default class Game extends Component {
         return (
             <table
                 style={{ overflowX: "auto", borderSpacing: 0 }}
-                onClick={this.update}
+                onKeyDown={this.update}
+                tabIndex={0}
             >
                 <tbody>{out}</tbody>
             </table>
