@@ -1,15 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-//import PropTypes from "prop-types";
+import GameGrid from "./components/game_grid.js";
 
 import "./index.css";
 
-class App extends Component {
-    render() {
-        return <p>open the console</p>;
-    }
-}
-
 const app = document.getElementById("app");
-ReactDOM.render(<App />, app);
-console.log("Hello world!");
+ReactDOM.render(<GameGrid />, app);
