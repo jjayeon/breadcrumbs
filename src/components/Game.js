@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+// import Navbar from "react-bootstrap/Navbar";
 import { ArrowRight, Play, RotateCw } from "react-feather";
 
 export default class Game extends Component {
@@ -189,17 +190,19 @@ export default class Game extends Component {
                 <br />
                 <div style={{ textAlign: "center" }}>
                     <Button
+                        className="list-group-item-danger"
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
                         }}
-                        variant="primary"
+                        variant="danger"
                     >
                         <RotateCw size={24} />
                         &nbsp;&nbsp;Reset&nbsp;
                     </Button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <Button
+                        className="list-group-item-primary"
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
@@ -211,11 +214,12 @@ export default class Game extends Component {
                     </Button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <Button
+                        className="list-group-item-info"
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
                         }}
-                        variant="primary"
+                        variant="info"
                     >
                         <ArrowRight size={23} />
                         &nbsp;&nbsp;Step&nbsp;
@@ -237,6 +241,28 @@ export default class Game extends Component {
                 <br />
                 <br />
                 <br />
+                <div
+                    className="fixed-bottom shadow-sm"
+                    style={{
+                        background: "whitesmoke",
+                        textAlign: "center",
+                        paddingTop: 8,
+                        paddingBottom: 10,
+                        borderTop: "1px solid #dcdcdc",
+                    }}
+                >
+                    <span
+                        style={{
+                            fontWeight: "bold",
+                            fontFamily: "Inknut Antiqua",
+                        }}
+                    >
+                        Breadcrumbs
+                    </span>{" "}
+                    by <a href="https://github.com/jjaytheon">@jjaytheon</a>,{" "}
+                    <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
+                    <a href="https://github.com/mgsium">@mgsium</a>
+                </div>
             </>
         );
     }
