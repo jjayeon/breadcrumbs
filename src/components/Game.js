@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { ArrowRight, Play, RotateCw, X } from "react-feather";
 import { css, cx } from "@emotion/css";
 
+// TODO: move to index.css
 const Styles = {
     table_style: css`
         & td {
@@ -168,6 +169,7 @@ export default class Game extends Component {
                     height: 50,
                     border: "1px solid black",
                     backgroundColor: this.state.grid[i][j],
+                    // TODO: move to index.css (minus backgroundColor)
                 };
                 let ant;
                 /* eslint-disable */
@@ -197,12 +199,17 @@ export default class Game extends Component {
 
         return (
             <>
-                <div style={{ textAlign: "center" }}>
+                <div
+                    style={{
+                        textAlign: "center", // TODO: move to index.css
+                    }}
+                >
                     <Button
                         className="list-group-item-danger"
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
+                            // TODO: move to index.css
                         }}
                         variant="danger"
                         onClick={this.reset}
@@ -221,6 +228,7 @@ export default class Game extends Component {
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
+                            // TODO: move to index.css
                         }}
                         variant={this.state.playing ? "danger" : "primary"}
                         onClick={this.togglePlaying}
@@ -238,6 +246,7 @@ export default class Game extends Component {
                         style={{
                             display: "inline-block",
                             borderRadius: 20,
+                            // TODO: move to index.css
                         }}
                         variant="info"
                         onClick={this.update}
@@ -255,9 +264,8 @@ export default class Game extends Component {
                         borderSpacing: 0,
                         marginLeft: "auto",
                         marginRight: "auto",
+                        // TODO: move to index.css
                     }}
-                    onKeyDown={this.update}
-                    tabIndex={0}
                 >
                     <tbody>{out}</tbody>
                 </table>
