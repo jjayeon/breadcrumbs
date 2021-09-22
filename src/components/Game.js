@@ -197,31 +197,6 @@ export default class Game extends Component {
 
         return (
             <>
-                <br />
-                <br />
-                <br />
-                <h1
-                    style={{
-                        fontFamily: "Inknut Antiqua",
-                        textAlign: "center",
-                        marginBottom: 5,
-                        fontSize: "2.6rem",
-                    }}
-                >
-                    Breadcrumbs
-                </h1>
-                <h5
-                    style={{
-                        fontFamily: "Inknut Antiqua",
-                        textAlign: "center",
-                        marginTop: 0,
-                        fontWeight: "bold",
-                        color: "#333",
-                    }}
-                >
-                    Help keep our ant alive!
-                </h5>
-                <br />
                 <div style={{ textAlign: "center" }}>
                     <Button
                         className="list-group-item-danger"
@@ -234,9 +209,9 @@ export default class Game extends Component {
                         disabled={this.state.playing}
                     >
                         <RotateCw size={24} />
-                        &nbsp;&nbsp;Reset&nbsp;
+                        Reset
                     </Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <Button
                         className={
                             this.state.playing
@@ -255,10 +230,9 @@ export default class Game extends Component {
                         ) : (
                             <Play size={24} />
                         )}
-                        &nbsp;&nbsp;{this.state.playing ? "Stop" : "Play"}
-                        &nbsp;
+                        {this.state.playing ? "Stop" : "Play"}
                     </Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+
                     <Button
                         className="list-group-item-info"
                         style={{
@@ -270,7 +244,7 @@ export default class Game extends Component {
                         disabled={this.state.playing}
                     >
                         <ArrowRight size={23} />
-                        &nbsp;&nbsp;Step&nbsp;
+                        Step
                     </Button>
                 </div>
                 <br />
@@ -287,31 +261,6 @@ export default class Game extends Component {
                 >
                     <tbody>{out}</tbody>
                 </table>
-                <br />
-                <br />
-                <br />
-                <div
-                    className="fixed-bottom shadow-sm"
-                    style={{
-                        background: "whitesmoke",
-                        textAlign: "center",
-                        paddingTop: 8,
-                        paddingBottom: 10,
-                        borderTop: "1px solid #dcdcdc",
-                    }}
-                >
-                    <span
-                        style={{
-                            fontWeight: "bold",
-                            fontFamily: "Inknut Antiqua",
-                        }}
-                    >
-                        Breadcrumbs
-                    </span>{" "}
-                    by <a href="https://github.com/jjaytheon">@jjaytheon</a>,{" "}
-                    <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
-                    <a href="https://github.com/mgsium">@mgsium</a>
-                </div>
             </>
         );
     }
