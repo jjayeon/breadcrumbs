@@ -159,13 +159,41 @@ export default class Game extends Component {
         }
 
         return (
-            <table
-                style={{ overflowX: "auto", borderSpacing: 0 }}
-                onKeyDown={this.update}
-                tabIndex={0}
-            >
-                <tbody>{out}</tbody>
-            </table>
+            <>
+                <br />
+                <h1
+                    style={{
+                        fontFamily: "Inknut Antiqua",
+                        textAlign: "center",
+                        marginBottom: 0,
+                        fontSize: "2.6rem",
+                        lineHeight: 1,
+                    }}
+                >
+                    Breadcrumbs
+                </h1>
+                <h3
+                    style={{
+                        fontFamily: "Inknut Antiqua",
+                        textAlign: "center",
+                        marginTop: 0,
+                    }}
+                >
+                    Help keep our ant alive!
+                </h3>
+                <table
+                    style={{
+                        overflowX: "auto",
+                        borderSpacing: 0,
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                    onKeyDown={this.update}
+                    tabIndex={0}
+                >
+                    <tbody>{out}</tbody>
+                </table>
+            </>
         );
     }
 }

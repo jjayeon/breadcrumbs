@@ -25,7 +25,8 @@
     },
     "dependencies": {
         "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react-dom": "^17.0.2",
+        "webfontloader": "^1.6.28"
     },
     "name": "jjy-npm-template",
     "description": "The various npm packages used by developer jjy (jjayeon).",
