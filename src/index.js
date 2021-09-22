@@ -5,4 +5,4 @@ import GameGrid from "./components/game_grid.js";
 import "./index.css";
 
 const app = document.getElementById("app");
-ReactDOM.render(<GameGrid />, app);
+ReactDOM.render(<GameGrid/>, app);
