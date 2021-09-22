@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import GameGrid from "./components/game_grid.js";
+
+import Game from "./components/Game.js";
 
 import "./index.css";
 
 const app = document.getElementById("app");
-ReactDOM.render(<GameGrid/>, app);
+ReactDOM.render(<Game />, app);
