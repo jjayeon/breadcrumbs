@@ -1,4 +1,19 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import { ArrowRight, Play, RotateCw, X } from "react-feather";
+import { css, cx } from "@emotion/css";
+
+const Styles = {
+    table_style: css`
+        & td {
+            transition: all 0.25s;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    `,
+};
 
 export default class Game extends Component {
     constructor(props) {
@@ -19,6 +34,8 @@ export default class Game extends Component {
             antY = 0,
             antDir = 1;
 
+        let playing = false;
+
         /*
           antDir can be    0, 1, 2, 3, 
           corresponding to N, E, S, W.
@@ -30,11 +47,14 @@ export default class Game extends Component {
             antX,
             antY,
             antDir,
+            playing,
         };
 
         this.toggle = this.toggle.bind(this);
         this.update = this.update.bind(this);
         this.win = this.win.bind(this);
+        this.togglePlaying = this.togglePlaying.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     toggle(i, j) {
@@ -47,6 +67,10 @@ export default class Game extends Component {
         this.setState({
             grid,
         });
+    }
+
+    reset() {
+        this.setState({ antX: 0, antY: 0, antDir: 1 });
     }
 
     update() {
@@ -121,6 +145,19 @@ export default class Game extends Component {
         alert("you win!");
     }
 
+    togglePlaying() {
+        const playing = this.state.playing;
+
+        if (playing) {
+            clearInterval(this.stepInterval);
+        } else {
+            // TODO: Change the speed to a variable adjustable with a slider
+            this.stepInterval = setInterval(this.update, 500);
+        }
+
+        this.setState({ playing: !playing });
+    }
+
     render() {
         let out = [];
         for (let i = 0; i < this.state.size; i++) {
@@ -159,13 +196,123 @@ export default class Game extends Component {
         }
 
         return (
-            <table
-                style={{ overflowX: "auto", borderSpacing: 0 }}
-                onKeyDown={this.update}
-                tabIndex={0}
-            >
-                <tbody>{out}</tbody>
-            </table>
+            <>
+                <br />
+                <br />
+                <br />
+                <h1
+                    style={{
+                        fontFamily: "Inknut Antiqua",
+                        textAlign: "center",
+                        marginBottom: 5,
+                        fontSize: "2.6rem",
+                    }}
+                >
+                    Breadcrumbs
+                </h1>
+                <h5
+                    style={{
+                        fontFamily: "Inknut Antiqua",
+                        textAlign: "center",
+                        marginTop: 0,
+                        fontWeight: "bold",
+                        color: "#333",
+                    }}
+                >
+                    Help keep our ant alive!
+                </h5>
+                <br />
+                <div style={{ textAlign: "center" }}>
+                    <Button
+                        className="list-group-item-danger"
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="danger"
+                        onClick={this.reset}
+                        disabled={this.state.playing}
+                    >
+                        <RotateCw size={24} />
+                        &nbsp;&nbsp;Reset&nbsp;
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button
+                        className={
+                            this.state.playing
+                                ? "list-group-item-danger"
+                                : "list-group-item-primary"
+                        }
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant={this.state.playing ? "danger" : "primary"}
+                        onClick={this.togglePlaying}
+                    >
+                        {this.state.playing ? (
+                            <X size={24} />
+                        ) : (
+                            <Play size={24} />
+                        )}
+                        &nbsp;&nbsp;{this.state.playing ? "Stop" : "Play"}
+                        &nbsp;
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button
+                        className="list-group-item-info"
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="info"
+                        onClick={this.update}
+                        disabled={this.state.playing}
+                    >
+                        <ArrowRight size={23} />
+                        &nbsp;&nbsp;Step&nbsp;
+                    </Button>
+                </div>
+                <br />
+                <table
+                    className={cx(Styles.table_style)}
+                    style={{
+                        overflowX: "auto",
+                        borderSpacing: 0,
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                    onKeyDown={this.update}
+                    tabIndex={0}
+                >
+                    <tbody>{out}</tbody>
+                </table>
+                <br />
+                <br />
+                <br />
+                <div
+                    className="fixed-bottom shadow-sm"
+                    style={{
+                        background: "whitesmoke",
+                        textAlign: "center",
+                        paddingTop: 8,
+                        paddingBottom: 10,
+                        borderTop: "1px solid #dcdcdc",
+                    }}
+                >
+                    <span
+                        style={{
+                            fontWeight: "bold",
+                            fontFamily: "Inknut Antiqua",
+                        }}
+                    >
+                        Breadcrumbs
+                    </span>{" "}
+                    by <a href="https://github.com/jjaytheon">@jjaytheon</a>,{" "}
+                    <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
+                    <a href="https://github.com/mgsium">@mgsium</a>
+                </div>
+            </>
         );
     }
 }
