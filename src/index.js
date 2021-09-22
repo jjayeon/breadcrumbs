@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import Game from "./components/Game.js";
 
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import WebFont from "webfontloader";
 
 WebFont.load({

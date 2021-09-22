@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import { ArrowRight, Play, RotateCw } from "react-feather";
 
 export default class Game extends Component {
     constructor(props) {
@@ -161,26 +163,65 @@ export default class Game extends Component {
         return (
             <>
                 <br />
+                <br />
+                <br />
                 <h1
                     style={{
                         fontFamily: "Inknut Antiqua",
                         textAlign: "center",
-                        marginBottom: 0,
+                        marginBottom: 5,
                         fontSize: "2.6rem",
-                        lineHeight: 1,
                     }}
                 >
                     Breadcrumbs
                 </h1>
-                <h3
+                <h5
                     style={{
                         fontFamily: "Inknut Antiqua",
                         textAlign: "center",
                         marginTop: 0,
+                        fontWeight: "bold",
+                        color: "#333",
                     }}
                 >
                     Help keep our ant alive!
-                </h3>
+                </h5>
+                <br />
+                <div style={{ textAlign: "center" }}>
+                    <Button
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="primary"
+                    >
+                        <RotateCw size={24} />
+                        &nbsp;&nbsp;Reset&nbsp;
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="primary"
+                    >
+                        <Play size={24} />
+                        &nbsp;&nbsp;Play&nbsp;
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="primary"
+                    >
+                        <ArrowRight size={23} />
+                        &nbsp;&nbsp;Step&nbsp;
+                    </Button>
+                </div>
+                <br />
                 <table
                     style={{
                         overflowX: "auto",
@@ -193,6 +234,9 @@ export default class Game extends Component {
                 >
                     <tbody>{out}</tbody>
                 </table>
+                <br />
+                <br />
+                <br />
             </>
         );
     }
