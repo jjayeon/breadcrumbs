@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-// import Navbar from "react-bootstrap/Navbar";
 import { ArrowRight, Play, RotateCw } from "react-feather";
+import { css, cx } from "@emotion/css";
+
+const Styles = {
+    table_style: css`
+        & td {
+            transition: all 0.25s;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    `,
+};
 
 export default class Game extends Component {
     constructor(props) {
@@ -227,6 +239,7 @@ export default class Game extends Component {
                 </div>
                 <br />
                 <table
+                    className={cx(Styles.table_style)}
                     style={{
                         overflowX: "auto",
                         borderSpacing: 0,
