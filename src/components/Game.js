@@ -19,6 +19,7 @@ export default class Game extends Component {
             size: 6,
             grid: null,
             initial: null,
+            stepInterval: null,
             antX: 0,
             antY: 0,
             antDir: 1,
@@ -179,7 +180,7 @@ export default class Game extends Component {
         const playing = this.state.playing;
 
         if (playing) {
-            clearInterval(this.stepInterval);
+            clearInterval(this.state.stepInterval);
             this.setState({
                 antX: 0,
                 antY: 0,
@@ -187,7 +188,9 @@ export default class Game extends Component {
             });
         } else {
             // TODO: Change the speed to a variable adjustable with a slider
-            this.stepInterval = setInterval(this.update, 500);
+            this.setState({
+                stepInterval: setInterval(this.update, 500),
+            });
         }
 
         this.setState({ playing: !playing });
