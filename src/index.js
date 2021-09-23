@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Game from "./components/Game.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WebFont from "webfontloader";
+
+import Game from "./components/Game.js";
+import "./index.css";
 
 WebFont.load({
     google: {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { ArrowRight, Play, RotateCw, X } from "react-feather";
-import "../index.css";
+
 import antIcon from "./ant.png";
 import { updateHighScore, getHighScore } from "../util/highscore";
 

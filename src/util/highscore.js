@@ -4,7 +4,7 @@ export const updateHighScore = (highscore) => {
 
 export const getHighScore = () => {
     // eslint-disable-next-line no-debugger
-    debugger;
+    // debugger;
 
     return localStorage.getItem("highscore");
 };
