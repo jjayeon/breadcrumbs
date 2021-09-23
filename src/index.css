@@ -1,2 +1,7 @@
-body {
+.table_style td {
+    transition: all 0.25s;
+}
+
+.table_style:hover {
+    cursor: pointer;
 }
