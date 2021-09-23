@@ -265,14 +265,16 @@ export default class Game extends Component {
         return (
             <>
                 <Header />
-                <Buttons
-                    init={this.init}
-                    reset={this.reset}
-                    togglePlaying={this.togglePlaying}
-                    update={this.update}
-                    playing={this.state.playing}
-                />
-                <FlippedTiles flippedTiles={this.flipped_tiles} />
+                <div className="user-input-area">
+                    <Buttons
+                        init={this.init}
+                        reset={this.reset}
+                        togglePlaying={this.togglePlaying}
+                        update={this.update}
+                        playing={this.state.playing}
+                    />
+                    <FlippedTiles flippedTiles={this.flipped_tiles} />
+                </div>
 
                 <table className="table_style">
                     <tbody>{out}</tbody>
