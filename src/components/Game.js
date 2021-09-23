@@ -62,8 +62,8 @@ export default class Game extends Component {
                 initial[i][j] = color;
             }
         }
-        initial[size - 1][size - 1] = "green";
-        grid[size - 1][size - 1] = "green";
+        initial[0][0] = grid[0][0] = "white";
+        initial[size - 1][size - 1] = grid[size - 1][size - 1] = "green";
 
         let antX = 0,
             antY = 0,
@@ -201,6 +201,12 @@ export default class Game extends Component {
 
     toggle(i, j) {
         if (this.state.playing) return;
+
+        if (i === 0 && j === 0) {
+            let antDir = (this.state.antDir + 1) % 4;
+            this.setState({ antDir });
+            return;
+        }
 
         let grid = this.state.grid;
         let color = grid[i][j];
@@ -369,6 +375,7 @@ export default class Game extends Component {
                         borderSpacing: 0,
                         marginLeft: "auto",
                         marginRight: "auto",
+                        userSelect: "none",
                     }}
                     onKeyDown={this.update}
                     tabIndex={0}
