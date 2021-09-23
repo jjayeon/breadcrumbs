@@ -179,6 +179,11 @@ export default class Game extends Component {
 
         if (playing) {
             clearInterval(this.stepInterval);
+            this.setState({
+                antX: 0,
+                antY: 0,
+                antDir: 1,
+            });
         } else {
             // TODO: Change the speed to a variable adjustable with a slider
             this.stepInterval = setInterval(this.update, 500);
@@ -188,6 +193,8 @@ export default class Game extends Component {
     }
 
     toggle(i, j) {
+        if (this.state.playing) return;
+
         let grid = this.state.grid;
         let color = grid[i][j];
         if (color === "white") color = "grey";
@@ -201,12 +208,16 @@ export default class Game extends Component {
 
     win() {
         alert("you win!");
+        this.togglePlaying();
     }
 
     render() {
         if (this.state.grid === null || this.state.initial === null)
             return "Loading...";
+
         let out = [];
+
+        let flipped_tiles = 0;
         for (let i = 0; i < this.state.size; i++) {
             let row = [];
             for (let j = 0; j < this.state.size; j++) {
@@ -238,6 +249,10 @@ export default class Game extends Component {
                         {j === this.state.antX && i === this.state.antY && ant}
                     </td>
                 );
+
+                if (this.state.grid[i][j] !== this.state.initial[i][j]) {
+                    flipped_tiles += 1;
+                }
             }
             out[i] = <tr key={i}>{row}</tr>;
         }
@@ -333,6 +348,11 @@ export default class Game extends Component {
                         <ArrowRight size={23} />
                         &nbsp;&nbsp;Step&nbsp;
                     </Button>
+                    <br />
+                    <span>
+                        Flipped tiles: {flipped_tiles} (try to get this as low
+                        as you can!)
+                    </span>
                 </div>
                 <br />
                 <table
