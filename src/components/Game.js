@@ -34,7 +34,7 @@ export default class Game extends Component {
         this.update = this.update.bind(this);
         this.togglePlaying = this.togglePlaying.bind(this);
         this.toggle = this.toggle.bind(this);
-        this.win = this.win.bind(this);
+        this.end = this.end.bind(this);
 
         // this.init();
     }
@@ -52,7 +52,12 @@ export default class Game extends Component {
             grid[i] = [];
             initial[i] = [];
             for (let j = 0; j < size; j++) {
-                let color = Math.random() < 0.5 ? "grey" : "white";
+                let r = Math.random();
+                let color;
+
+                if (r < 0.5) color = "white";
+                else if (r < 0.6) color = "red";
+                else color = "grey";
                 grid[i][j] = color;
                 initial[i][j] = color;
             }
@@ -170,7 +175,9 @@ export default class Game extends Component {
         });
 
         if (antX === size - 1 && antY === size - 1) {
-            this.win();
+            this.end("You win! :)");
+        } else if (this.state.grid[antY][antX] === "red") {
+            this.end("You lose! :(");
         }
     }
 
@@ -206,8 +213,8 @@ export default class Game extends Component {
         });
     }
 
-    win() {
-        alert("you win!");
+    end(msg) {
+        alert(msg);
         this.togglePlaying();
     }
 
