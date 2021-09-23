@@ -161,7 +161,9 @@ export default class Game extends Component {
             let flipped_tiles = 0;
             for (let i = 0; i < this.state.size; i++) {
                 for (let j = 0; j < this.state.size; j++) {
-                    flipped_tiles += 1;
+                    if (this.state.grid[i][j] !== this.state.initial[i][j]) {
+                        flipped_tiles += 1;
+                    }
                 }
             }
             if (flipped_tiles < getHighScore()) {
