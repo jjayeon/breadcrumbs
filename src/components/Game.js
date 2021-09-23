@@ -396,7 +396,7 @@ export default class Game extends Component {
                     >
                         Breadcrumbs
                     </span>{" "}
-                    by <a href="https://github.com/jjaytheon">@jjaytheon</a>,{" "}
+                    by <a href="https://github.com/jjayeon">@jjayeon</a>,{" "}
                     <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
                     <a href="https://github.com/mgsium">@mgsium</a>
                 </div>
