@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import { ArrowRight, Play, RotateCw, X } from "react-feather";
 
 import "../index.css";
 import antIcon from "./ant.png";
-import Footer from "./Footer.js";
+
 import Header from "./Header.js";
+import Buttons from "./Buttons.js";
+import FlippedTiles from "./FlippedTiles.js";
+import Highscore from "./Highscore.js";
+import Footer from "./Footer.js";
 import { updateHighScore, getHighScore } from "../util/highscore";
 
 export default class Game extends Component {
@@ -283,72 +285,20 @@ export default class Game extends Component {
             <>
                 <Header />
                 <div className="user-input-area">
-                    <div className="game-buttons">
-                        <Button
-                            className="list-group-item-danger"
-                            variant="danger"
-                            onClick={this.init}
-                            disabled={this.state.playing}
-                        >
-                            <RotateCw size={24} className="rotate-symbol" />
-                            New Game
-                        </Button>
-                        <Button
-                            className="list-group-item-danger"
-                            variant="danger"
-                            onClick={this.reset}
-                            disabled={this.state.playing}
-                        >
-                            <RotateCw size={24} className="rotate-symbol" />
-                            Reset
-                        </Button>
-                        <Button
-                            className={
-                                this.state.playing
-                                    ? "list-group-item-danger"
-                                    : "list-group-item-primary"
-                            }
-                            variant={this.state.playing ? "danger" : "primary"}
-                            onClick={this.togglePlaying}
-                        >
-                            {this.state.playing ? (
-                                <X size={24} className="playandstop-symbol" />
-                            ) : (
-                                <Play
-                                    size={24}
-                                    className="playandstop-symbol"
-                                />
-                            )}
-                            {this.state.playing ? "Stop" : "Play"}
-                        </Button>
-                        <Button
-                            className="list-group-item-info"
-                            variant="info"
-                            onClick={this.update}
-                            disabled={this.state.playing}
-                        >
-                            <ArrowRight size={23} className="arrow-symbol" />
-                            Step
-                        </Button>
-                    </div>
-                    <span className="user-instructions">
-                        Flipped tiles: {this.flipped_tiles} (try to get this as
-                        low as you can!)
-                    </span>
+                    <Buttons
+                        init={this.init}
+                        reset={this.reset}
+                        togglePlaying={this.togglePlaying}
+                        update={this.update}
+                        playing={this.state.playing}
+                    />
+                    <FlippedTiles flippedTiles={this.flipped_tiles} />
                 </div>
-                <table
-                    className="table_style"
-                    onKeyDown={this.update}
-                    tabIndex={0}
-                >
+
+                <table className="table_style">
                     <tbody>{out}</tbody>
                 </table>
-                <span className="highscore">
-                    <span>Highscore:</span>
-                    {getHighScore() === "Infinity"
-                        ? "Win to get your highscore!"
-                        : getHighScore()}
-                </span>
+                <Highscore />
                 <Footer />
             </>
         );
