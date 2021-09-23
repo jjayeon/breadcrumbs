@@ -1,11 +1,12 @@
 #app {
     margin-top: 50px;
     font-family: "Inknut Antiqua";
+    text-align: center;
 }
 
 .breadcrumbs-title {
     display: flex;
-    text-align: center;
+
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
@@ -13,22 +14,22 @@
 }
 
 .breadcrumbs-subtitle {
-    text-align: center;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
 .user-input-area {
     display: flex;
-    text-align: center;
     justify-content: center;
-    align-items: center;
+
     flex-direction: column;
 }
 
 .game-buttons {
+    margin: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 500px;
     margin-bottom: 10px;
 }
@@ -51,7 +52,6 @@ button {
 
 .user-instructions {
     margin-bottom: 20px;
-    text-align: center;
 }
 
 table {
@@ -72,7 +72,6 @@ td {
 
 .fixed-bottom {
     background: whitesmoke;
-    text-align: center;
     padding-top: 8;
     padding-bottom: 10;
     border-top: 1px solid #dcdcdc;

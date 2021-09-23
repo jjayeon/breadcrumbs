@@ -5,7 +5,7 @@ import "../index.css";
 import Header from "./Header.js";
 import Buttons from "./Buttons.js";
 import FlippedTiles from "./FlippedTiles.js";
-import Ant from "./Ant.js";
+import Cell from "./Cell.js";
 import Highscore from "./Highscore.js";
 import Footer from "./Footer.js";
 
@@ -235,24 +235,15 @@ export default class Game extends Component {
         for (let i = 0; i < this.state.size; i++) {
             let row = [];
             for (let j = 0; j < this.state.size; j++) {
-                let style = {
-                    width: 50,
-                    height: 50,
-                    border: "1px solid black",
-                    backgroundColor: this.state.grid[i][j],
-                };
-
                 row[j] = (
-                    <td
+                    <Cell
                         key={j}
-                        id="table"
-                        style={style}
+                        index={j}
                         onClick={() => this.toggle(i, j)}
-                    >
-                        {j === this.state.antX && i === this.state.antY && (
-                            <Ant antDir={this.state.antDir} />
-                        )}
-                    </td>
+                        color={this.state.grid[i][j]}
+                        antHere={j === this.state.antX && i === this.state.antY}
+                        antDir={this.state.antDir}
+                    />
                 );
 
                 if (this.state.grid[i][j] !== this.state.initial[i][j]) {
@@ -265,16 +256,14 @@ export default class Game extends Component {
         return (
             <>
                 <Header />
-                <div className="user-input-area">
-                    <Buttons
-                        init={this.init}
-                        reset={this.reset}
-                        togglePlaying={this.togglePlaying}
-                        update={this.update}
-                        playing={this.state.playing}
-                    />
-                    <FlippedTiles flippedTiles={this.flipped_tiles} />
-                </div>
+                <Buttons
+                    init={this.init}
+                    reset={this.reset}
+                    togglePlaying={this.togglePlaying}
+                    update={this.update}
+                    playing={this.state.playing}
+                />
+                <FlippedTiles flippedTiles={this.flipped_tiles} />
 
                 <table className="table_style">
                     <tbody>{out}</tbody>
