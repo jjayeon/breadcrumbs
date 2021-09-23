@@ -97,6 +97,18 @@ table {
     border-top: 1px solid #dcdcdc;
 }
 
+.highscore {
+    font-family: "Inknut Antiqua";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.highscore span {
+    margin-right: 10px;
+}
+
 .footer {
     font-weight: bold;
     font-family: "Inknut Antiqua";

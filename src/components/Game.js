@@ -3,6 +3,19 @@ import Button from "react-bootstrap/Button";
 import { ArrowRight, Play, RotateCw, X } from "react-feather";
 import "../index.css";
 import antIcon from "./ant.png";
+import { updateHighScore, getHighScore } from "../util/highscore";
+
+// const Styles = {
+//     table_style: css`
+//         & td {
+//             transition: all 0.25s;
+//         }
+
+//         &:hover {
+//             cursor: pointer;
+//         }
+//     `,
+// };
 
 export default class Game extends Component {
     constructor(props) {
@@ -16,6 +29,7 @@ export default class Game extends Component {
             antY: 0,
             antDir: 1,
             playing: false,
+            roundWin: false,
         };
 
         this.init = this.init.bind(this);
@@ -28,6 +42,15 @@ export default class Game extends Component {
 
     componentDidMount() {
         this.init();
+    }
+
+    componentDidUpdate() {
+        if (
+            this.flipped_tiles < getHighScore() &&
+            this.state.roundWin === true
+        ) {
+            updateHighScore(this.flipped_tiles);
+        }
     }
 
     init() {
@@ -71,6 +94,10 @@ export default class Game extends Component {
             antDir,
             playing,
         });
+        // init localstorage on first play
+        if (getHighScore() === null) {
+            updateHighScore(Infinity);
+        }
     }
 
     reset() {
@@ -163,6 +190,7 @@ export default class Game extends Component {
 
         if (antX === size - 1 && antY === size - 1) {
             this.end("You win! :)");
+            this.setState({ roundWin: true });
         } else if (this.state.grid[antY][antX] === "red") {
             this.end("You lose! :(");
         }
@@ -217,7 +245,7 @@ export default class Game extends Component {
 
         let out = [];
 
-        let flipped_tiles = 0;
+        this.flipped_tiles = 0;
         for (let i = 0; i < this.state.size; i++) {
             let row = [];
             for (let j = 0; j < this.state.size; j++) {
@@ -262,7 +290,7 @@ export default class Game extends Component {
                 );
 
                 if (this.state.grid[i][j] !== this.state.initial[i][j]) {
-                    flipped_tiles += 1;
+                    this.flipped_tiles += 1;
                 }
             }
             out[i] = <tr key={i}>{row}</tr>;
@@ -340,8 +368,8 @@ export default class Game extends Component {
                         </Button>
                     </div>
                     <span className="user-instructions">
-                        Flipped tiles: {flipped_tiles} (try to get this as low
-                        as you can!)
+                        Flipped tiles: {this.flipped_tiles} (try to get this as
+                        low as you can!)
                     </span>
                 </div>
                 <table
@@ -351,6 +379,12 @@ export default class Game extends Component {
                 >
                     <tbody>{out}</tbody>
                 </table>
+                <span className="highscore">
+                    <span>Highscore:</span>
+                    {getHighScore() === "Infinity"
+                        ? "Win to get your highscore!"
+                        : getHighScore()}
+                </span>
                 <div className="fixed-bottom shadow-sm">
                     <span className="footer">Breadcrumbs</span> by{" "}
                     <a href="https://github.com/jjayeon">@jjayeon</a>,{" "}
