@@ -24,8 +24,6 @@ export default class Game extends Component {
         this.togglePlaying = this.togglePlaying.bind(this);
         this.toggle = this.toggle.bind(this);
         this.end = this.end.bind(this);
-
-        // this.init();
     }
 
     componentDidMount() {
@@ -253,7 +251,12 @@ export default class Game extends Component {
                 }
                 /* eslint-enable */
                 row[j] = (
-                    <td key={j} style={style} onClick={() => this.toggle(i, j)}>
+                    <td
+                        key={j}
+                        id="table"
+                        style={style}
+                        onClick={() => this.toggle(i, j)}
+                    >
                         {j === this.state.antX && i === this.state.antY && ant}
                     </td>
                 );
@@ -267,138 +270,90 @@ export default class Game extends Component {
 
         return (
             <>
-                <br />
-                <br />
-                <br />
-                <h1
-                    style={{
-                        fontFamily: "Inknut Antiqua",
-                        textAlign: "center",
-                        marginBottom: 5,
-                        fontSize: "2.6rem",
-                    }}
-                >
-                    Breadcrumbs
-                </h1>
-                <h5
-                    style={{
-                        fontFamily: "Inknut Antiqua",
-                        textAlign: "center",
-                        marginTop: 0,
-                        fontWeight: "bold",
-                        color: "#333",
-                    }}
-                >
+                <h1 className="breadcrumbs-title">Breadcrumbs</h1>
+                <h5 className="breadcrumbs-subtitle">
                     Help keep our ant alive!
                 </h5>
-                <br />
-                <div style={{ textAlign: "center" }}>
-                    <Button
-                        className="list-group-item-danger"
-                        style={{
-                            display: "inline-block",
-                            borderRadius: 20,
-                        }}
-                        variant="danger"
-                        onClick={this.init}
-                        disabled={this.state.playing}
-                    >
-                        <RotateCw size={24} />
-                        &nbsp;&nbsp;New Game&nbsp;
-                    </Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button
-                        className="list-group-item-danger"
-                        style={{
-                            display: "inline-block",
-                            borderRadius: 20,
-                        }}
-                        variant="danger"
-                        onClick={this.reset}
-                        disabled={this.state.playing}
-                    >
-                        <RotateCw size={24} />
-                        &nbsp;&nbsp;Reset&nbsp;
-                    </Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button
-                        className={
-                            this.state.playing
-                                ? "list-group-item-danger"
-                                : "list-group-item-primary"
-                        }
-                        style={{
-                            display: "inline-block",
-                            borderRadius: 20,
-                        }}
-                        variant={this.state.playing ? "danger" : "primary"}
-                        onClick={this.togglePlaying}
-                    >
-                        {this.state.playing ? (
-                            <X size={24} />
-                        ) : (
-                            <Play size={24} />
-                        )}
-                        &nbsp;&nbsp;{this.state.playing ? "Stop" : "Play"}
-                        &nbsp;
-                    </Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button
-                        className="list-group-item-info"
-                        style={{
-                            display: "inline-block",
-                            borderRadius: 20,
-                        }}
-                        variant="info"
-                        onClick={this.update}
-                        disabled={this.state.playing}
-                    >
-                        <ArrowRight size={23} />
-                        &nbsp;&nbsp;Step&nbsp;
-                    </Button>
-                    <br />
-                    <span>
+                <div className="user-input-area">
+                    <div className="game-buttons">
+                        <Button
+                            className="list-group-item-danger"
+                            style={{
+                                display: "inline-block",
+                                borderRadius: 20,
+                            }}
+                            variant="danger"
+                            onClick={this.init}
+                            disabled={this.state.playing}
+                        >
+                            <RotateCw size={24} className="rotate-symbol" />
+                            New Game
+                        </Button>
+                        <Button
+                            className="list-group-item-danger"
+                            style={{
+                                display: "inline-block",
+                                borderRadius: 20,
+                            }}
+                            variant="danger"
+                            onClick={this.reset}
+                            disabled={this.state.playing}
+                        >
+                            <RotateCw size={24} className="rotate-symbol" />
+                            Reset
+                        </Button>
+                        <Button
+                            className={
+                                this.state.playing
+                                    ? "list-group-item-danger"
+                                    : "list-group-item-primary"
+                            }
+                            style={{
+                                display: "inline-block",
+                                borderRadius: 20,
+                            }}
+                            variant={this.state.playing ? "danger" : "primary"}
+                            onClick={this.togglePlaying}
+                        >
+                            {this.state.playing ? (
+                                <X size={24} className="playandstop-symbol" />
+                            ) : (
+                                <Play
+                                    size={24}
+                                    className="playandstop-symbol"
+                                />
+                            )}
+                            {this.state.playing ? "Stop" : "Play"}
+                        </Button>
+                        <Button
+                            className="list-group-item-info"
+                            style={{
+                                display: "inline-block",
+                                borderRadius: 20,
+                            }}
+                            variant="info"
+                            onClick={this.update}
+                            disabled={this.state.playing}
+                        >
+                            <ArrowRight size={23} className="arrow-symbol" />
+                            Step
+                        </Button>
+                    </div>
+                    <span className="user-instructions">
                         Flipped tiles: {flipped_tiles} (try to get this as low
                         as you can!)
                     </span>
                 </div>
-                <br />
                 <table
                     className="table_style"
-                    style={{
-                        overflowX: "auto",
-                        borderSpacing: 0,
-                        marginLeft: "auto",
-                        marginRight: "auto",
-                        userSelect: "none",
-                    }}
                     onKeyDown={this.update}
                     tabIndex={0}
                 >
                     <tbody>{out}</tbody>
                 </table>
-                <br />
-                <br />
-                <br />
-                <div
-                    className="fixed-bottom shadow-sm"
-                    style={{
-                        background: "whitesmoke",
-                        textAlign: "center",
-                        paddingTop: 8,
-                        paddingBottom: 10,
-                        borderTop: "1px solid #dcdcdc",
-                    }}
-                >
-                    <span
-                        style={{
-                            fontWeight: "bold",
-                            fontFamily: "Inknut Antiqua",
-                        }}
-                    >
-                        Breadcrumbs
-                    </span>{" "}
-                    by <a href="https://github.com/jjayeon">@jjayeon</a>,{" "}
+                <div className="fixed-bottom shadow-sm">
+                    <span className="footer">Breadcrumbs</span> by{" "}
+                    <a href="https://github.com/jjayeon">@jjayeon</a>,{" "}
                     <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
                     <a href="https://github.com/mgsium">@mgsium</a>
                 </div>
