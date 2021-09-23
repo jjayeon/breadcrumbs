@@ -1,2 +1,71 @@
-body {
+#app {
+    margin-top: 50px;
+}
+
+.breadcrumbs-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inknut Antiqua";
+    margin-bottom: 5px;
+    font-size: 2.6rem;
+}
+
+.breadcrumbs-subtitle {
+    font-family: "Inknut Antiqua";
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.user-input-area {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    margin-bottom: 10px;
+}
+
+.rotate-symbol {
+    margin-right: 10px;
+}
+
+.playandstop-symbol {
+    margin-right: 6px;
+}
+
+.arrow-symbol {
+    margin-right: 7px;
+}
+
+.user-instructions {
+    margin-bottom: 20px;
+}
+
+table {
+    overflow: auto;
+    border-spacing: 0;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: none;
+}
+
+.fixed-bottom {
+    background: whitesmoke;
+    text-align: center;
+    padding-top: 8;
+    padding-bottom: 10;
+    border-top: 1px solid #dcdcdc;
+}
+
+.footer {
+    font-weight: bold;
+    font-family: "Inknut Antiqua";
 }
