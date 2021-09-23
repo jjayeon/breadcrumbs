@@ -158,8 +158,14 @@ export default class Game extends Component {
         });
 
         if (antX === size - 1 && antY === size - 1) {
-            if (this.flipped_tiles < getHighScore()) {
-                updateHighScore(this.flipped_tiles);
+            let flipped_tiles = 0;
+            for (let i = 0; i < this.state.size; i++) {
+                for (let j = 0; j < this.state.size; j++) {
+                    flipped_tiles += 1;
+                }
+            }
+            if (flipped_tiles < getHighScore()) {
+                updateHighScore(flipped_tiles);
             }
             this.end("You win! :)");
         } else if (this.state.grid[antY][antX] === "red") {
@@ -216,7 +222,7 @@ export default class Game extends Component {
 
         let out = [];
 
-        this.flipped_tiles = 0;
+        let flipped_tiles = 0;
         for (let i = 0; i < this.state.size; i++) {
             let row = [];
             for (let j = 0; j < this.state.size; j++) {
@@ -231,7 +237,7 @@ export default class Game extends Component {
                 );
 
                 if (this.state.grid[i][j] !== this.state.initial[i][j]) {
-                    this.flipped_tiles += 1;
+                    flipped_tiles += 1;
                 }
             }
             out[i] = <tr key={i}>{row}</tr>;
@@ -247,7 +253,7 @@ export default class Game extends Component {
                     update={this.update}
                     playing={this.state.playing}
                 />
-                <FlippedTiles flippedTiles={this.flipped_tiles} />
+                <FlippedTiles flippedTiles={flipped_tiles} />
 
                 <table>
                     <tbody>{out}</tbody>
