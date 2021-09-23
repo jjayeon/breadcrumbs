@@ -15,7 +15,7 @@ export default function Cell(props) {
         ant = <Ant antDir={props.antDir} />;
     }
     return (
-        <td key={props.index} style={style} onClick={props.onClick}>
+        <td style={style} onClick={props.onClick}>
             {ant}
         </td>
     );

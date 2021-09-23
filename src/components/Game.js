@@ -22,6 +22,10 @@ export default class Game extends Component {
             antX: 0,
             antY: 0,
             antDir: 1,
+            /*
+              antDir can be    0, 1, 2, 3, 
+              corresponding to N, E, S, W.
+            */
             playing: false,
         };
 
@@ -52,31 +56,24 @@ export default class Game extends Component {
                 if (r < 0.5) color = "white";
                 else if (r < 0.6) color = "red";
                 else color = "grey";
-                grid[i][j] = color;
-                initial[i][j] = color;
+
+                initial[i][j] = grid[i][j] = color;
             }
         }
         initial[0][0] = grid[0][0] = "white";
         initial[size - 1][size - 1] = grid[size - 1][size - 1] = "green";
 
-        let antX = 0,
-            antY = 0,
-            antDir = 1;
-
-        /*
-          antDir can be    0, 1, 2, 3, 
-          corresponding to N, E, S, W.
-        */
-
-        let playing = false;
-
         this.setState({
             grid,
             initial,
-            antX,
-            antY,
-            antDir,
-            playing,
+            antX: 0,
+            antY: 0,
+            antDir: 1,
+            /*
+              antDir can be    0, 1, 2, 3, 
+              corresponding to N, E, S, W.
+            */
+            playing: false,
         });
         // init localstorage on first play
         if (getHighScore() === null) {
@@ -109,52 +106,41 @@ export default class Game extends Component {
         let antY = this.state.antY;
         let size = this.state.size;
 
-        let bounce = false;
+        /* eslint-disable */
+        switch (antDir) {
+            case 0:
+                antY -= 1;
+                break;
+            case 1:
+                antX += 1;
+                break;
+            case 2:
+                antY += 1;
+                break;
+            case 3:
+                antX -= 1;
+                break;
+        }
 
         /*
           antDir can be    0, 1, 2, 3, 
           corresponding to N, E, S, W.
         */
 
-        /* eslint-disable */
-        switch (antDir) {
-            case 0:
-                antY -= 1;
-                if (antY < 0) {
-                    antY = 0;
-                    antDir = 2;
-                    bounce = true;
-                }
-                break;
-            case 1:
-                antX += 1;
-                if (antX >= size) {
-                    antX = size - 1;
-                    antDir = 3;
-                    bounce = true;
-                }
-                break;
-            case 2:
-                antY += 1;
-                if (antY >= size) {
-                    antY = size - 1;
-                    antDir = 0;
-                    bounce = true;
-                }
-                break;
-            case 3:
-                antX -= 1;
-                if (antX < 0) {
-                    antX = 0;
-                    antDir = 1;
-                    bounce = true;
-                }
-                break;
-        }
-
-        if (!bounce) {
-            let color = this.state.grid[antY][antX];
-            switch (color) {
+        if (antY < 0) {
+            antY = 0;
+            antDir = 2;
+        } else if (antX >= size) {
+            antX = size - 1;
+            antDir = 3;
+        } else if (antY >= size) {
+            antY = size - 1;
+            antDir = 0;
+        } else if (antX < 0) {
+            antX = 0;
+            antDir = 1;
+        } else {
+            switch (this.state.grid[antY][antX]) {
                 case "white":
                     antDir = (antDir + 1) % 4;
                     break;
@@ -163,7 +149,6 @@ export default class Game extends Component {
                     break;
             }
         }
-
         /* eslint-enable */
 
         this.setState({
@@ -238,7 +223,6 @@ export default class Game extends Component {
                 row[j] = (
                     <Cell
                         key={j}
-                        index={j}
                         onClick={() => this.toggle(i, j)}
                         color={this.state.grid[i][j]}
                         antHere={j === this.state.antX && i === this.state.antY}
@@ -265,7 +249,7 @@ export default class Game extends Component {
                 />
                 <FlippedTiles flippedTiles={this.flipped_tiles} />
 
-                <table className="table_style">
+                <table>
                     <tbody>{out}</tbody>
                 </table>
 
