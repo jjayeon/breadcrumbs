@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
 import "../index.css";
-import antIcon from "./ant.png";
 
 import Header from "./Header.js";
 import Buttons from "./Buttons.js";
 import FlippedTiles from "./FlippedTiles.js";
+import Ant from "./Ant.js";
 import Highscore from "./Highscore.js";
 import Footer from "./Footer.js";
+
 import { updateHighScore, getHighScore } from "../util/highscore";
 
 export default class Game extends Component {
@@ -240,29 +241,7 @@ export default class Game extends Component {
                     border: "1px solid black",
                     backgroundColor: this.state.grid[i][j],
                 };
-                let ant;
-                /* eslint-disable */
-                switch (this.state.antDir) {
-                    case 0:
-                        ant = <img src={antIcon} width={30} />;
-                        break;
-                    case 1:
-                        ant = (
-                            <img src={antIcon} width={30} className="rot_90" />
-                        );
-                        break;
-                    case 2:
-                        ant = (
-                            <img src={antIcon} width={30} className="rot_180" />
-                        );
-                        break;
-                    case 3:
-                        ant = (
-                            <img src={antIcon} width={30} className="rot_270" />
-                        );
-                        break;
-                }
-                /* eslint-enable */
+
                 row[j] = (
                     <td
                         key={j}
@@ -270,7 +249,9 @@ export default class Game extends Component {
                         style={style}
                         onClick={() => this.toggle(i, j)}
                     >
-                        {j === this.state.antX && i === this.state.antY && ant}
+                        {j === this.state.antX && i === this.state.antY && (
+                            <Ant antDir={this.state.antDir} />
+                        )}
                     </td>
                 );
 
@@ -284,20 +265,19 @@ export default class Game extends Component {
         return (
             <>
                 <Header />
-                <div className="user-input-area">
-                    <Buttons
-                        init={this.init}
-                        reset={this.reset}
-                        togglePlaying={this.togglePlaying}
-                        update={this.update}
-                        playing={this.state.playing}
-                    />
-                    <FlippedTiles flippedTiles={this.flipped_tiles} />
-                </div>
+                <Buttons
+                    init={this.init}
+                    reset={this.reset}
+                    togglePlaying={this.togglePlaying}
+                    update={this.update}
+                    playing={this.state.playing}
+                />
+                <FlippedTiles flippedTiles={this.flipped_tiles} />
 
                 <table className="table_style">
                     <tbody>{out}</tbody>
                 </table>
+
                 <Highscore />
                 <Footer />
             </>

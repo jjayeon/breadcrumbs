@@ -1,58 +1,27 @@
-.table_style td {
-    transition: all 0.25s;
-}
-
-.table_style:hover {
-    cursor: pointer;
-}
-
-.rot_90 {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-
-.rot_180 {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.rot_270 {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
-
 #app {
     margin-top: 50px;
+    font-family: "Inknut Antiqua";
+
 }
 
 .breadcrumbs-title {
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
-    font-family: "Inknut Antiqua";
     margin-bottom: 5px;
     font-size: 2.6rem;
 }
 
 .breadcrumbs-subtitle {
-    font-family: "Inknut Antiqua";
     text-align: center;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
 .user-input-area {
-    text-align: center;
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -94,6 +63,14 @@ table {
     user-select: none;
 }
 
+table:hover {
+    cursor: pointer;
+}
+
+td {
+    transition: all 0.25s;
+}
+
 .fixed-bottom {
     background: whitesmoke;
     text-align: center;
@@ -103,7 +80,6 @@ table {
 }
 
 .highscore {
-    font-family: "Inknut Antiqua";
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,5 +92,4 @@ table {
 
 .footer {
     font-weight: bold;
-    font-family: "Inknut Antiqua";
 }
