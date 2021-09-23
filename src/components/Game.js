@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { ArrowRight, Play, RotateCw, X } from "react-feather";
 
+import "../index.css";
 import antIcon from "./ant.png";
+import Footer from "./Footer.js";
+import Header from "./Header.js";
 import { updateHighScore, getHighScore } from "../util/highscore";
 
 export default class Game extends Component {
@@ -278,24 +281,11 @@ export default class Game extends Component {
 
         return (
             <>
-                <h1 className="breadcrumbs-title">Breadcrumbs</h1>
-                <h5 className="breadcrumbs-subtitle">
-                    Help keep our ant alive!
-                </h5>
-                <p className="user-instructions">
-                    Each step, the ant will move forward. If it sees white, it
-                    will turn right, and if it sees grey, it will turn left. Try
-                    to avoid the red patches, and guide the ant towards the
-                    goal!
-                </p>
+                <Header />
                 <div className="user-input-area">
                     <div className="game-buttons">
                         <Button
                             className="list-group-item-danger"
-                            style={{
-                                display: "inline-block",
-                                borderRadius: 20,
-                            }}
                             variant="danger"
                             onClick={this.init}
                             disabled={this.state.playing}
@@ -305,10 +295,6 @@ export default class Game extends Component {
                         </Button>
                         <Button
                             className="list-group-item-danger"
-                            style={{
-                                display: "inline-block",
-                                borderRadius: 20,
-                            }}
                             variant="danger"
                             onClick={this.reset}
                             disabled={this.state.playing}
@@ -322,10 +308,6 @@ export default class Game extends Component {
                                     ? "list-group-item-danger"
                                     : "list-group-item-primary"
                             }
-                            style={{
-                                display: "inline-block",
-                                borderRadius: 20,
-                            }}
                             variant={this.state.playing ? "danger" : "primary"}
                             onClick={this.togglePlaying}
                         >
@@ -341,10 +323,6 @@ export default class Game extends Component {
                         </Button>
                         <Button
                             className="list-group-item-info"
-                            style={{
-                                display: "inline-block",
-                                borderRadius: 20,
-                            }}
                             variant="info"
                             onClick={this.update}
                             disabled={this.state.playing}
@@ -371,12 +349,7 @@ export default class Game extends Component {
                         ? "Win to get your highscore!"
                         : getHighScore()}
                 </span>
-                <div className="fixed-bottom shadow-sm">
-                    <span className="footer">Breadcrumbs</span> by{" "}
-                    <a href="https://github.com/jjayeon">@jjayeon</a>,{" "}
-                    <a href="https://github.com/hankc97">@hankc97</a>, and{" "}
-                    <a href="https://github.com/mgsium">@mgsium</a>
-                </div>
+                <Footer />
             </>
         );
     }

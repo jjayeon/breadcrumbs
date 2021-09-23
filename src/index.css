@@ -65,6 +65,10 @@
     margin-bottom: 10px;
 }
 
+button {
+    border-radius: 20px !important;
+}
+
 .rotate-symbol {
     margin-right: 10px;
 }
