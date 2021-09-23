@@ -19,58 +19,85 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
 
-        let size = 6;
+        this.state = {
+            size: 6,
+            grid: null,
+            initial: null,
+            antX: 0,
+            antY: 0,
+            antDir: 1,
+            playing: false,
+        };
+
+        this.init = this.init.bind(this);
+        this.reset = this.reset.bind(this);
+        this.update = this.update.bind(this);
+        this.togglePlaying = this.togglePlaying.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.win = this.win.bind(this);
+
+        // this.init();
+    }
+
+    componentDidMount() {
+        this.init();
+    }
+
+    init() {
+        let size = this.state.size;
 
         let grid = [];
+        let initial = [];
         for (let i = 0; i < size; i++) {
             grid[i] = [];
+            initial[i] = [];
             for (let j = 0; j < size; j++) {
-                grid[i][j] = Math.random() < 0.5 ? "grey" : "white";
+                let color = Math.random() < 0.5 ? "grey" : "white";
+                grid[i][j] = color;
+                initial[i][j] = color;
             }
         }
+        initial[size - 1][size - 1] = "green";
         grid[size - 1][size - 1] = "green";
 
         let antX = 0,
             antY = 0,
             antDir = 1;
 
-        let playing = false;
-
         /*
           antDir can be    0, 1, 2, 3, 
           corresponding to N, E, S, W.
         */
 
-        this.state = {
-            size,
+        let playing = false;
+
+        this.setState({
             grid,
+            initial,
             antX,
             antY,
             antDir,
             playing,
-        };
-
-        this.toggle = this.toggle.bind(this);
-        this.update = this.update.bind(this);
-        this.win = this.win.bind(this);
-        this.togglePlaying = this.togglePlaying.bind(this);
-        this.reset = this.reset.bind(this);
-    }
-
-    toggle(i, j) {
-        let grid = this.state.grid;
-        let color = grid[i][j];
-        if (color === "white") color = "grey";
-        else if (color === "grey") color = "white";
-        grid[i][j] = color;
-
-        this.setState({
-            grid,
         });
     }
 
     reset() {
-        this.setState({ antX: 0, antY: 0, antDir: 1 });
+        let size = this.state.size;
+        let grid = [];
+        for (let i = 0; i < size; i++) {
+            grid[i] = [];
+            for (let j = 0; j < size; j++) {
+                grid[i][j] = this.state.initial[i][j];
+            }
+        }
+
+        this.setState({
+            grid,
+            antX: 0,
+            antY: 0,
+            antDir: 1,
+            playing: false,
+        });
     }
 
     update() {
@@ -80,6 +107,12 @@ export default class Game extends Component {
         let size = this.state.size;
 
         let bounce = false;
+
+        /*
+          antDir can be    0, 1, 2, 3, 
+          corresponding to N, E, S, W.
+        */
+
         /* eslint-disable */
         switch (antDir) {
             case 0:
@@ -141,10 +174,6 @@ export default class Game extends Component {
         }
     }
 
-    win() {
-        alert("you win!");
-    }
-
     togglePlaying() {
         const playing = this.state.playing;
 
@@ -158,7 +187,25 @@ export default class Game extends Component {
         this.setState({ playing: !playing });
     }
 
+    toggle(i, j) {
+        let grid = this.state.grid;
+        let color = grid[i][j];
+        if (color === "white") color = "grey";
+        else if (color === "grey") color = "white";
+        grid[i][j] = color;
+
+        this.setState({
+            grid,
+        });
+    }
+
+    win() {
+        alert("you win!");
+    }
+
     render() {
+        if (this.state.grid === null || this.state.initial === null)
+            return "Loading...";
         let out = [];
         for (let i = 0; i < this.state.size; i++) {
             let row = [];
@@ -223,6 +270,20 @@ export default class Game extends Component {
                 </h5>
                 <br />
                 <div style={{ textAlign: "center" }}>
+                    <Button
+                        className="list-group-item-danger"
+                        style={{
+                            display: "inline-block",
+                            borderRadius: 20,
+                        }}
+                        variant="danger"
+                        onClick={this.init}
+                        disabled={this.state.playing}
+                    >
+                        <RotateCw size={24} />
+                        &nbsp;&nbsp;New Game&nbsp;
+                    </Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <Button
                         className="list-group-item-danger"
                         style={{
