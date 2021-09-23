@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { ArrowRight, Play, RotateCw, X } from "react-feather";
 import "../index.css";
+import antIcon from "./ant.png";
 
 export default class Game extends Component {
     constructor(props) {
@@ -232,16 +233,22 @@ export default class Game extends Component {
                 /* eslint-disable */
                 switch (this.state.antDir) {
                     case 0:
-                        ant = "^";
+                        ant = <img src={antIcon} width={30} />;
                         break;
                     case 1:
-                        ant = ">";
+                        ant = (
+                            <img src={antIcon} width={30} className="rot_90" />
+                        );
                         break;
                     case 2:
-                        ant = "v";
+                        ant = (
+                            <img src={antIcon} width={30} className="rot_180" />
+                        );
                         break;
                     case 3:
-                        ant = "<";
+                        ant = (
+                            <img src={antIcon} width={30} className="rot_270" />
+                        );
                         break;
                 }
                 /* eslint-enable */
