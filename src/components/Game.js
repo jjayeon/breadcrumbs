@@ -5,18 +5,6 @@ import "../index.css";
 import antIcon from "./ant.png";
 import { updateHighScore, getHighScore } from "../util/highscore";
 
-// const Styles = {
-//     table_style: css`
-//         & td {
-//             transition: all 0.25s;
-//         }
-
-//         &:hover {
-//             cursor: pointer;
-//         }
-//     `,
-// };
-
 export default class Game extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +17,6 @@ export default class Game extends Component {
             antY: 0,
             antDir: 1,
             playing: false,
-            roundWin: false,
         };
 
         this.init = this.init.bind(this);
@@ -42,15 +29,6 @@ export default class Game extends Component {
 
     componentDidMount() {
         this.init();
-    }
-
-    componentDidUpdate() {
-        if (
-            this.flipped_tiles < getHighScore() &&
-            this.state.roundWin === true
-        ) {
-            updateHighScore(this.flipped_tiles);
-        }
     }
 
     init() {
@@ -189,8 +167,10 @@ export default class Game extends Component {
         });
 
         if (antX === size - 1 && antY === size - 1) {
+            if (this.flipped_tiles < getHighScore()) {
+                updateHighScore(this.flipped_tiles);
+            }
             this.end("You win! :)");
-            this.setState({ roundWin: true });
         } else if (this.state.grid[antY][antX] === "red") {
             this.end("You lose! :(");
         }
