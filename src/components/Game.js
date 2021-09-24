@@ -55,7 +55,7 @@ export default class Game extends Component {
                 let color;
 
                 if (r < 0.5) color = "white";
-                else if (r < 0.6) color = "red";
+                else if (r < 0.6 && (i, j) !== (1, 1)) color = "red";
                 else color = "grey";
 
                 initial[i][j] = grid[i][j] = color;
