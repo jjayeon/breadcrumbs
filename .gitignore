@@ -105,5 +105,3 @@ dist
 
 # emacs backups
 *~
-
-package-lock.json
