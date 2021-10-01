@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: build project files
         run: |
-          npm i -g npm@latest 
+          rm package-lock.json
           npm install
           npm run build
           
